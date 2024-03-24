@@ -19,7 +19,7 @@ const Nav = () => {
   
 
   return (
-    <div className="navbar bg-base-100 shadow-lg px-4 sticky z-10">
+    <div className="navbar bg-base-100 shadow-lg sm:px-8 sticky z-10">
       <div className="flex-1">
         <NavLink
           to="/"
