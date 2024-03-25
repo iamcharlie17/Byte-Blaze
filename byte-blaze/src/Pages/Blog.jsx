@@ -1,22 +1,28 @@
 import { useState } from 'react';
 import { Link, Outlet, useLoaderData } from 'react-router-dom';
+import { MdBookmarkAdd } from "react-icons/md";
+import { saveBlog } from '../utils';
+
 
 const Blog = () => {
 
   const [tabIndex, setTabIndex] = useState(0)
 
+  
+
   const blog = useLoaderData();
   console.log(blog);
   const {
     title,
-    cover_image,
     comments_count,
     reading_time_minutes,
-    public_reactions_count,
     published_at,
     profile_image,
-    tags,
   } = blog;
+
+  const handleBookmark = (blog) => {
+    saveBlog(blog);
+ }
 
   return (
     <div className="max-w-3xl px-6 py-16 mx-auto space-y-12 ">
@@ -86,47 +92,15 @@ const Blog = () => {
               </svg>
               <span>Author</span>
             </Link>
+            {/* bookmark button */}
+            <div onClick={()=> handleBookmark(blog)} className=" bg-primary p-3 ml-5 rounded-full hover:bg-opacity-30 bg-opacity-20 cursor-pointer hover:scale-105 overflow-hidden">
+              <MdBookmarkAdd size={20} className='text-secondary' />
+            </div>
           </div>
         </div>
-        <Outlet/>
+        <Outlet />
       </article>
-      <div>
-        <div className="flex flex-wrap py-6 gap-2 border-t border-dashed border-gray-400">
-          {
-            tags.map(tag => (
-              <a
-                key={tag}
-                rel="noopener noreferrer"
-                href="#"
-                className="px-3 py-1 rounded-sm hover:underline text-gray-900"
-              >
-                #{tag}
-              </a>
-            ))
-          }
-          
-        </div>
-        <div className="space-y-2">
-          <h4 className="text-lg font-semibold">Related posts</h4>
-          <ul className="ml-4 space-y-1 list-disc">
-            <li>
-              <a rel="noopener noreferrer" href="#" className="hover:underline">
-                Nunc id magna mollis
-              </a>
-            </li>
-            <li>
-              <a rel="noopener noreferrer" href="#" className="hover:underline">
-                Duis molestie, neque eget pretium lobortis
-              </a>
-            </li>
-            <li>
-              <a rel="noopener noreferrer" href="#" className="hover:underline">
-                Mauris nec urna volutpat, aliquam lectus sit amet
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <div></div>
     </div>
   );
 };
